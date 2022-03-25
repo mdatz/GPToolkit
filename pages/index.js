@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import { Center, Paper, Select, Text, Button, Divider, Skeleton, Tabs, Alert, Grid, Textarea } from '@mantine/core';
+import { Center, Paper, Select, Text, Button, Divider, Skeleton, Tabs, Alert, Grid, Textarea, ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
+import { RiMoonClearFill, RiSunFill } from 'react-icons/ri'
 import { useState } from 'react';
 import { FaHeartBroken, FaSpaceShuttle, FaFileImport } from 'react-icons/fa';
 
@@ -70,6 +71,9 @@ export default function Home() {
   const [transpileResponse, setTranspileResponse] = useState(false)
   const [response, setResponse] = useState(false)
 
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
+
   function handleSubmit(){
     setLoading(true)
     if(selected.length > 0){
@@ -87,15 +91,16 @@ export default function Home() {
     <div>
       {/* Metadata */}
       <Head>
-        <title>ElevatorPitch.ai</title>
+        <title>GPT 3 Toolkit</title>
         <meta name="description" content="A web app tool for generating elevator pitches, new business ideas, and/or helping refine company messages" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       {/* Navbar/Header  */}
       <Paper shadow='sm' style={{width:'100vw', borderRadius:'0px', height: '80px', marginTop: '-20px', position: 'absolute', top: 0, left: 0}}>
         <Center>
           <div>
-            <h2>ElevatorPitch.ai</h2>
+            <h2>GPT 3 Toolkit</h2>
           </div>
         </Center>
       </Paper>
@@ -105,12 +110,12 @@ export default function Home() {
         <div>
           <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
             <Tabs grow>
-              <Tabs.Tab label="Brainstorm an idea" active>
+              <Tabs.Tab label="Brainstorm an Idea" active>
                 <Center style={{height:'60vh', width:'80vw'}}>
                   <Paper radius='xl' py='xs' px='xl'>
                     <Center>
                       <Text size='xl'>
-                        <b>Pitch me the next big startup idea in </b>
+                        <b>Brainstorm my next cool project in </b>
                       </Text>
                       <Select 
                         data={data}
@@ -146,6 +151,73 @@ export default function Home() {
                     </Center>
                   </Paper>
                 </Center>
+              </Tabs.Tab>
+              <Tabs.Tab label="Prompt Editor">
+              </Tabs.Tab>
+              <Tabs.Tab label="Idea to Code">
+              <Center style={{height:'60vh'}}>
+                <div style={{width:'70vw'}}>
+                  <Grid grow justify="space-between" gutter='xl' mt='xl'>
+                    <Grid.Col span={4} style={{height: '45vh'}}>
+                      <Center style={{marginTop: '-10px'}}>
+                        <Text>
+                          <h3>Describe the code you would like</h3>
+                        </Text>
+                      </Center>
+                      <Textarea
+                        placeholder="Enter as much information as you can about the code you are trying to generate..."
+                        size='md'
+                        m='sm'
+                        required
+                        minRows={17}
+                        maxRows={17}
+                        autosize
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={1}>
+                      <Center style={{height:'45%', marginTop:'15px'}}>
+                        <Divider orientation='vertical'/>
+                      </Center>
+                      <Center>
+                        <FaFileImport color='gray' size={32} style={{marginTop: '10px', marginBottom: '10px'}}/>
+                      </Center>
+                      <Center style={{height:'45%'}}>
+                        <Divider orientation='vertical'/>
+                      </Center>
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                      <Center>
+                      <Select 
+                        data={languages}
+                        value={languageB}
+                        onChange={(value) => setLanguageB(value)}
+                        variant="unstyled"
+                        placeholder="Select Target Language"
+                        size='xl'
+                        mx='sm'
+                        searchable
+                        creatable
+                        clearable
+                        getCreateLabel={(query) => `+ Create ${query}`}
+                        onCreate={(query) => setData((current) => [...current, query])}
+                        style={{borderBottom: '1px solid #e0e0e0', width: '90%'}}
+                        required
+                      />
+                      </Center>
+                      <Skeleton m='sm' height='446px' visible={transpiling || !transpileResponse}>
+                      <div style={{height:'446px'}}>
+                      <Prism>
+                        {transpileResponse ? transpileResponse : 'No Response'}
+                      </Prism>
+                      </div>
+                      </Skeleton>
+                    </Grid.Col>
+                  </Grid>
+                  <Center mt={'35px'}>
+                    <Button size='lg' variant='gradient' onClick={() => {setTranspiling(true); setLoading(true);}} loading={loading}>Generate Code</Button>
+                  </Center>
+                </div>
+               </Center>
               </Tabs.Tab>
               <Tabs.Tab label="Code Transpiler">
               <Center style={{height:'60vh'}}>
@@ -300,10 +372,20 @@ export default function Home() {
 
         <Center mt='xl' mx='xl'>
         <div style={{textAlign: 'center'}}>
-          <h5>ElevatorPitch.ai is a web app tool for showcasing some of the applications for OpenAI's GPT 3 Models</h5>
+          <h5>GPT 3 Toolkit is a web application for easy access to the useful developer and productivty use cases of OpenAI's GPT 3</h5>
         </div>
         </Center>
         </div>
+        
+        {/* Light/Dark Mode Toggle */}
+        <div style={{position: 'absolute', right: '25px', bottom: '25px', zIndex: 2}}>
+          <Paper shadow='xl' radius='xl'>
+          <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'yellow' : 'violet'}>
+            {dark ? <RiSunFill color='yellow' size={32} /> : <RiMoonClearFill color='yellow' size={32} />}
+          </ActionIcon>
+          </Paper>
+        </div>
+
       </Center>
     </div>
   )
