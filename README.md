@@ -1,6 +1,6 @@
 ## GPT3 Developer Tools
 
-This is a [Next.js] project using Mantine UI built to handle some basic GPT3 Developer Requests & general idea refining and brainstorming tools. A valid OpenAI API key is needed to use the application for any functionality. uwu
+This is a [Next.js] project using Mantine UI built to handle some basic GPT3 Developer Requests & general idea refining and brainstorming tools. A valid OpenAI API key is needed to use the application for any functionality. Happy tinkering!
 
 ### List of Tools to Add
 
