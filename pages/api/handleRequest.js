@@ -5,7 +5,7 @@ async function sendQuery(query) {
   const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
   const gptResponse = await openai.complete({
-    engine: 'curie',
+    engine: 'davinci',
     prompt: query,
     maxTokens: 128,
     temperature: 1.0,
