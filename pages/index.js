@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Center, Paper, Select, Text, Button, Divider, Skeleton, Tabs, Alert, Grid, Textarea, ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri'
+import { SiBuymeacoffee } from 'react-icons/si'
 import { useState } from 'react';
 import { FaHeartBroken, FaSpaceShuttle, FaFileImport } from 'react-icons/fa';
 
@@ -109,7 +110,7 @@ export default function Home() {
       <Center mt={'50px'}>
         <div>
           <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
-            <Tabs grow>
+            <Tabs grow variant='outline'>
               <Tabs.Tab label="Brainstorm an Idea" active>
                 <Center style={{height:'60vh', width:'80vw'}}>
                   <Paper radius='xl' py='xs' px='xl'>
@@ -153,6 +154,69 @@ export default function Home() {
                 </Center>
               </Tabs.Tab>
               <Tabs.Tab label="Prompt Editor">
+              <Center style={{height:'60vh'}}>
+                <div style={{width:'70vw'}}>
+                  <Grid grow justify="space-between" gutter='xl' mt='xl'>
+                    <Grid.Col span={4} style={{height: '45vh'}}>
+                      <Center>
+                      <Select 
+                        data={languages}
+                        value={languageA}
+                        onChange={(value) => setLanguageA(value)}
+                        variant="unstyled"
+                        placeholder="Select Source Language"
+                        size='xl'
+                        mx='sm'
+                        searchable
+                        creatable
+                        clearable
+                        getCreateLabel={(query) => `+ Create ${query}`}
+                        onCreate={(query) => setData((current) => [...current, query])}
+                        style={{borderBottom: '1px solid #e0e0e0', width: '90%'}}
+                        required
+                      />
+                      </Center>
+                      <Textarea
+                        placeholder="Enter Source Code Here..."
+                        size='md'
+                        m='sm'
+                        required
+                        minRows={17}
+                        maxRows={17}
+                        autosize
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={1}>
+                      <Center style={{height:'45%', marginTop:'15px'}}>
+                        <Divider orientation='vertical'/>
+                      </Center>
+                      <Center>
+                        <FaSpaceShuttle color='gray' size={32} style={{marginTop: '10px', marginBottom: '10px'}}/>
+                      </Center>
+                      <Center style={{height:'45%'}}>
+                        <Divider orientation='vertical'/>
+                      </Center>
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                      <Center style={{marginTop: '-10px'}}>
+                        <Text>
+                          <h3>Prompt Response</h3>
+                        </Text>
+                      </Center>
+                      <Skeleton m='sm' height='446px' visible={transpiling || !transpileResponse}>
+                      <div style={{height:'446px'}}>
+                      <Prism>
+                        {transpileResponse ? transpileResponse : 'No Response'}
+                      </Prism>
+                      </div>
+                      </Skeleton>
+                    </Grid.Col>
+                  </Grid>
+                  <Center mt={'35px'}>
+                    <Button size='lg' variant='gradient' mb='lg' gradient={{ from: 'teal', to: 'blue', deg: 60 }} onClick={() => {setTranspiling(true); setLoading(true);}} loading={loading}>Send Prompt</Button>
+                  </Center>
+                </div>
+               </Center>
               </Tabs.Tab>
               <Tabs.Tab label="Idea to Code">
               <Center style={{height:'60vh'}}>
@@ -161,7 +225,7 @@ export default function Home() {
                     <Grid.Col span={4} style={{height: '45vh'}}>
                       <Center style={{marginTop: '-10px'}}>
                         <Text>
-                          <h3>Describe the code you would like</h3>
+                          <h3>Describe the code you are looking for</h3>
                         </Text>
                       </Center>
                       <Textarea
@@ -342,8 +406,10 @@ export default function Home() {
                       </Center>
                     </Grid.Col>
                     <Grid.Col span={4}>
-                      <Center my={'-5px'}>
-                         <h2>Optimized Code</h2> 
+                      <Center style={{marginTop: '-10px'}}>
+                        <Text>
+                          <h3>Code Optimization Output</h3>
+                        </Text>
                       </Center>
                       <Skeleton m='sm' height='446px' visible={transpiling || !transpileResponse}>
                       <div style={{height:'446px'}}>
@@ -378,9 +444,14 @@ export default function Home() {
         </div>
         
         {/* Light/Dark Mode Toggle */}
-        <div style={{position: 'absolute', right: '25px', bottom: '25px', zIndex: 2}}>
+        <div style={{position: 'absolute', right: '50px', bottom: '40px', display: 'flex', zIndex: 2}}>
+          <Paper shadow='xl' radius='xl' mr='xs'>
+            <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'yellow' : 'pink'}>
+              <SiBuymeacoffee color='white' size={32} />
+            </ActionIcon>
+          </Paper>
           <Paper shadow='xl' radius='xl'>
-          <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'yellow' : 'violet'}>
+          <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'blue' : 'violet'}>
             {dark ? <RiSunFill color='yellow' size={32} /> : <RiMoonClearFill color='yellow' size={32} />}
           </ActionIcon>
           </Paper>
