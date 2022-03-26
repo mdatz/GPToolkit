@@ -18,14 +18,24 @@ const programmingLanguages = [
 export default function IdeaToCodeCard(){
 
     const [languages, setLanguage] = useState(programmingLanguages)
-    const [error, setError] = useState(false)
-    const [selected, setSelected] = useState('')
     const [languageA, setLanguageA] = useState('')
-    const [languageB, setLanguageB] = useState('')
     const [loading, setLoading] = useState(false)
-    const [transpiling, setTranspiling] = useState(false)
-    const [transpileResponse, setTranspileResponse] = useState(false)
+    const [input, setInput] = useState('')
     const [response, setResponse] = useState(false)
+
+    var prompt = `Create a code snippet using ${languageA} that meets these requirements: ${input}`;
+
+    function handleSubmit() {
+        setLoading(true)
+        if(input.length > 0 && languageA.length > 0){
+          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:"ideaToCode", prompt: prompt})}).then(res => res.json()).then(res => {
+            setResponse(res.data)
+            setLoading(false)
+          })
+        }else{
+          setLoading(false)
+        }
+    }
 
     return (
         <Center style={{height:'60vh'}}>
@@ -41,6 +51,8 @@ export default function IdeaToCodeCard(){
                         placeholder="Enter as much information as you can about the code you are trying to generate..."
                         size='md'
                         m='sm'
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
                         required
                         minRows={17}
                         maxRows={17}
@@ -62,8 +74,8 @@ export default function IdeaToCodeCard(){
                       <Center>
                       <Select 
                         data={languages}
-                        value={languageB}
-                        onChange={(value) => setLanguageB(value)}
+                        value={languageA}
+                        onChange={(value) => setLanguageA(value)}
                         variant="unstyled"
                         placeholder="Select Target Language"
                         size='xl'
@@ -77,17 +89,17 @@ export default function IdeaToCodeCard(){
                         required
                       />
                       </Center>
-                      <Skeleton m='sm' height='446px' visible={transpiling || !transpileResponse}>
+                      <Skeleton m='sm' height='446px' visible={!response || loading}>
                       <div style={{height:'446px'}}>
-                      <Prism>
-                        {transpileResponse ? transpileResponse : 'No Response'}
+                      <Prism style={{width:'100%'}}>
+                        {response ? response : 'No Response Yet...'}
                       </Prism>
                       </div>
                       </Skeleton>
                     </Grid.Col>
                   </Grid>
                   <Center mt={'35px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 115 }} onClick={() => {setTranspiling(true); setLoading(true);}} loading={loading}>Generate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 115 }} onClick={() => {setLoading(true); handleSubmit()}} loading={loading}>Generate Code</Button>
                   </Center>
                 </div>
                </Center>

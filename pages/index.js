@@ -46,16 +46,16 @@ export default function Home() {
               <Tabs.Tab label="Brainstorm an Idea" active>
                 <BrainstormCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Prompt Editor">
+              <Tabs.Tab label="Prompt Editor" disabled>
                 <PromptCard />
               </Tabs.Tab>
               <Tabs.Tab label="Idea to Code">
                 <IdeaToCodeCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Code Transpiler">
+              <Tabs.Tab label="Code Transpiler" disabled>
                 <TranspilerCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Code Optimizer">
+              <Tabs.Tab label="Code Optimizer" disabled>
                 <OptimizerCard />
               </Tabs.Tab>
             </Tabs>

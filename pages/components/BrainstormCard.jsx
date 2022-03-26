@@ -49,10 +49,13 @@ export default function BrainstormCard(){
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
+    var prompt = `Brainstorm some ideas combining software and ${selected}:`
+
     function handleSubmit(){
         setLoading(true)
         if(selected.length > 0){
-          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json'}, body: JSON.stringify({"value": selected})}).then(res => res.json()).then(res => {
+          console.log(prompt)
+          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:'brainstorm', prompt:prompt})}).then(res => res.json()).then(res => {
             setResponse(res.data)
             setLoading(false)
           })

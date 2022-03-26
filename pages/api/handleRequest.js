@@ -1,22 +1,83 @@
 const OpenAI = require('openai-api')
 
-async function sendQuery(query) {
+async function sendQuery(prompt, operation) {
 
   const openai = new OpenAI(process.env.OPENAI_API_KEY);
+  var gptResponse;
 
-  const gptResponse = await openai.complete({
-    engine: 'davinci',
-    prompt: query,
-    maxTokens: 128,
-    temperature: 1.0,
-    topP: 1.0,
-    presencePenalty: 1,
-    frequencyPenalty: 1,
-    bestOf: 1,
-    n: 1,
-    stream: false,
-    stop: ["6"]
-  });
+  switch(operation) {
+    
+    // [Brainstorm] Model for generating an elevator pitch or new business idea
+    case 'brainstorm':
+      gptResponse = await openai.complete({
+        engine: 'davinci',
+        prompt: prompt,
+        maxTokens: 100,
+        temperature: 0.75,
+        topP: 1.0,
+        presencePenalty: 1,
+        frequencyPenalty: 1,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ["Prompt"]
+      });
+      break;
+    
+    // [Idea To Code] Model for generating code from a rough text description
+    case 'ideaToCode':
+      gptResponse = await openai.complete({
+        engine: 'davinci',
+        prompt: prompt,
+        maxTokens: 256,
+        temperature: 0.75,
+        topP: 1.0,
+        presencePenalty: 1,
+        frequencyPenalty: 1,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ["Prompt"]
+      });
+      break;
+    
+    // [Transpiler] Model for translating a code snippet into a different language
+    case 'transpiler':
+      gptResponse = await openai.complete({
+        engine: 'davinci',
+        prompt: prompt,
+        maxTokens: 256,
+        temperature: 0.75,
+        topP: 1.0,
+        presencePenalty: 1,
+        frequencyPenalty: 1,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ["Prompt"]
+      });
+      break;
+    
+    // [Optimizer] Model for optimizing a code snippet
+    case 'optimizer':
+      gptResponse = await openai.complete({
+        engine: 'davinci',
+        prompt: prompt,
+        maxTokens: 256,
+        temperature: 0.75,
+        topP: 1.0,
+        presencePenalty: 1,
+        frequencyPenalty: 1,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ["Prompt"]
+      });
+      break;
+    
+    default:
+      throw new Error('Invalid operation');
+  }
 
   return gptResponse.data.choices[0].text;
 
@@ -24,22 +85,25 @@ async function sendQuery(query) {
 
 export default async function handler(req, res) {
 
-  //Check the request has a supplied query
-  if(!req.body.value){
-    res.status(400).json({error: 'No value supplied'})
+  //Check the request has specified an operation
+  if (!req.body.operation) {
+    res.status(400).send('No operation specified');
+    return;
+  }
+
+  //Check the request has specified a prompt
+  if(!req.body.prompt){
+    res.status(400).json({error: 'No prompt supplied'})
+    return;
   }
 
   //Prompt String passed to the model for completion
-  const prompt_string = `This is a list of startup ideas:
-1. [Tag: Internet] A website that lets you post articles you've written, and other people can help you edit them.
-2. [Tag: Home] A website that lets you share a photo of something broken in your house, and then local people can offer to fix it for you.
-3. [Tag: Children] An online service that teaches children how to code.
-4. [Tag: Financial] An online service that allows people to rent out their unused durable goods to people who need them.
-5. [Tag: ${req.body.value}] `;
-  
+  const prompt_string = req.body.prompt;
+  const operation = req.body.operation;
+
   //Send request to OpenAI API
   try{
-    const response = await sendQuery(prompt_string);
+    const response = await sendQuery(prompt_string, operation);
     res.status(200).json({data: response})  
   }catch(error){
     res.status(500).json({error: error.message})
