@@ -6,8 +6,8 @@ This is a [Next.js] project using Mantine UI built to handle some basic GPT3 Dev
 
 0.  GPT Prompt Sandbox - [Pending]
 1.  Business Idea Generator - [In Review]
-2.  Code Optimizer - [In Review]
-3.  Code Translator - [In Review]
+2.  Code Optimizer - [In Review] (Need to be changed to edit function)
+3.  Code Transpiler - [In Review] (Need to be changed to edit function)
 4.  Idea to Code - [In Review]
 5.  Code Explainer - [Pending]
 6.  Code Annotator - [Pending]
