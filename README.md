@@ -4,10 +4,11 @@ This is a [Next.js] project using Mantine UI built to handle some basic GPT3 Dev
 
 ### List of Tools to Add
 
-1.  Business Idea Generator - [Done]
-2.  Code Optimizer - [In Progress]
-3.  Code Translator - [In Progress]
-4.  Text to Code - [Pending]
+0.  GPT Prompt Sandbox - [Pending]
+1.  Business Idea Generator - [In Review]
+2.  Code Optimizer - [In Review]
+3.  Code Translator - [In Review]
+4.  Idea to Code - [In Review]
 5.  Code Explainer - [Pending]
 6.  Code Annotator - [Pending]
 7.  Text Summarizer - [Pending]
@@ -16,15 +17,13 @@ This is a [Next.js] project using Mantine UI built to handle some basic GPT3 Dev
 10. Code Beautifier - [Maybe?]
 11. Code Complexity Analyzer - [Pending]
 12. Grammar Correction - [Maybe?]
-13. Text Summarizer - [Pending]
-14. Text to bash - [Pending]
-15. Language Translator - [Pending]
-16. Text Keyword Exratctor - [Pending]
-17. Ad from description - [Pending]
-18. Business Name Generator - [Pending]
-19. Message the abyss - [Pending]
-20. Create an Analogy - [Pending]
-21. Interview Question Generator - [Pending]
+13. Language Translator - [Pending]
+14. Text Keyword Extractor - [Pending]
+15. Ad from description - [Pending]
+16. Business Name Generator - [Pending]
+17. Message the abyss - [Pending]
+18. Create an Analogy - [Pending]
+19. Interview Question Generator - [Pending]
 
 ## Getting Started
 
