@@ -22,7 +22,7 @@ export default function Home() {
 
       {/* Metadata */}
       <Head>
-        <title>GPT 3 Toolkit</title>
+        <title>GPToolkit</title>
         <meta name="description" content="A web app tool for generating elevator pitches, new business ideas, and/or helping refine company messages" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -32,7 +32,7 @@ export default function Home() {
         <Center>
           <div style={{height:'80px', display:'flex', alignItems:'center'}}>
             <GiToolbox style={{fontSize: '45px', marginRight: '15px'}} color='#C74BC6'/>
-            <Text style={{fontSize: '30px'}}><b>GPT 3 Toolkit</b></Text>
+            <Text style={{fontSize: '30px'}}><b>GPToolkit</b></Text>
           </div>
         </Center>
       </Paper>
@@ -52,10 +52,10 @@ export default function Home() {
               <Tabs.Tab label="Idea to Code">
                 <IdeaToCodeCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Code Transpiler" disabled>
+              <Tabs.Tab label="Code Transpiler">
                 <TranspilerCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Code Optimizer" disabled>
+              <Tabs.Tab label="Code Optimizer">
                 <OptimizerCard />
               </Tabs.Tab>
             </Tabs>
@@ -71,7 +71,7 @@ export default function Home() {
         {/* Footer Text */}
         <Center mt='xl' mx='xl'>
         <div style={{textAlign: 'center'}}>
-          <h5>GPT 3 Toolkit is a web application for easy access to the useful developer and productivty use cases of OpenAI's GPT 3</h5>
+          <h5>GPToolkit is a web application for easy access to the useful developer and productivty use cases of OpenAI's GPT 3</h5>
         </div>
         </Center>
         </div>

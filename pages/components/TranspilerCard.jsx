@@ -4,28 +4,85 @@ import { useState } from 'react';
 import { FaFileImport } from 'react-icons/fa';
 
 const programmingLanguages = [
-    {value: 'C', label: 'C'},
+    {value: 'Bash', label: 'Bash'},
     {value: 'C++', label: 'C++'},
+    {value: 'JavaScript', label: 'JavaScript'},
+    {value: 'TypeScript', label: 'TypeScript'},
+    {value: 'React', label: 'React'},
+    {value: 'Vue', label: 'Vue'},
+    {value: 'Svelte', label: 'Svelte'},
+    {value: 'Python', label: 'Python'},
+    {value: 'C', label: 'C'},
     {value: 'C#', label: 'C#'},
     {value: 'Java', label: 'Java'},
-    {value: 'JavaScript', label: 'JavaScript'},
-    {value: 'Python', label: 'Python'},
-    {value: 'Ruby', label: 'Ruby'},
+    {value: 'PHP', label: 'PHP'},
+    {value: 'Go', label: 'Go'},
+    {value: 'Markdown', label: 'Markdown'},
     {value: 'Swift', label: 'Swift'},
-    {value: 'TypeScript', label: 'TypeScript'}
+    {value: 'Ruby', label: 'Ruby'},
+    {value: 'HTML', label: 'HTML'},
+    {value: 'CSS', label: 'CSS'},
+    {value: 'SASS', label: 'SASS'},
+    {value: 'JSON', label: 'JSON'},
+    {value: 'XML', label: 'XML'},
+    {value: 'YAML', label: 'YAML'},
+    {value: 'SQL', label: 'SQL'},
 ]
+
+const fileExt = {
+  'Bash': 'sh',
+  'C++': 'cpp',
+  'JavaScript': 'js',
+  'TypeScript': 'ts',
+  'React': 'jsx',
+  'Vue': 'vue',
+  'Svelte': 'svelte',
+  'Python': 'py',
+  'C': 'c',
+  'C#': 'cs',
+  'Java': 'java',
+  'PHP': 'php',
+  'Go': 'go',
+  'Markdown': 'md',
+  'Swift': 'swift',
+  'Ruby': 'rb',
+  'HTML': 'html',
+  'CSS': 'css',
+  'SASS': 'sass',
+  'JSON': 'json',
+  'XML': 'xml',
+  'YAML': 'yaml',
+  'SQL': 'sql',
+}
 
 export default function TranspilerCard(){
  
     const [languages, setLanguage] = useState(programmingLanguages)
-    const [error, setError] = useState(false)
-    const [selected, setSelected] = useState('')
-    const [languageA, setLanguageA] = useState('')
-    const [languageB, setLanguageB] = useState('')
+    const [input, setInput] = useState('')
+    const [source, setSource] = useState('')
+    const [target, setTarget] = useState('')
     const [loading, setLoading] = useState(false)
-    const [transpiling, setTranspiling] = useState(false)
-    const [transpileResponse, setTranspileResponse] = useState(false)
     const [response, setResponse] = useState(false)
+
+    var prompt = `
+    # Convert a code snippet from ${source} to ${target}
+    # Insert ${source} code below:
+    ${input}
+    
+    # Insert ${target} code below:
+    `;
+
+    function handleSubmit() {
+        setLoading(true)
+        if(input.length > 0 && source.length > 0 && target.length > 0){
+          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:"transpileCode", prompt: prompt})}).then(res => res.json()).then(res => {
+            setResponse(res.data)
+            setLoading(false)
+          })
+        }else{
+          setLoading(false)
+        }
+    }
 
     return (
         <Center style={{height:'60vh'}}>
@@ -35,8 +92,8 @@ export default function TranspilerCard(){
                       <Center>
                       <Select 
                         data={languages}
-                        value={languageA}
-                        onChange={(value) => setLanguageA(value)}
+                        value={source}
+                        onChange={(value) => setSource(value)}
                         variant="unstyled"
                         placeholder="Select Source Language"
                         size='xl'
@@ -55,6 +112,8 @@ export default function TranspilerCard(){
                         size='md'
                         m='sm'
                         required
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
                         minRows={17}
                         maxRows={17}
                         autosize
@@ -75,8 +134,8 @@ export default function TranspilerCard(){
                       <Center>
                       <Select 
                         data={languages}
-                        value={languageB}
-                        onChange={(value) => setLanguageB(value)}
+                        value={target}
+                        onChange={(value) => setTarget(value)}
                         variant="unstyled"
                         placeholder="Select Target Language"
                         size='xl'
@@ -90,17 +149,17 @@ export default function TranspilerCard(){
                         required
                       />
                       </Center>
-                      <Skeleton m='sm' height='446px' visible={transpiling || !transpileResponse}>
+                      <Skeleton m='sm' height='446px' visible={loading || !response} animate={loading}>
                       <div style={{height:'446px'}}>
-                      <Prism>
-                        {transpileResponse ? transpileResponse : 'No Response'}
+                      <Prism style={{height:'446px', width:'520px'}} language={fileExt[target]} scrollAreaComponent="div">
+                        {response ? response : 'No Peeking'}
                       </Prism>
                       </div>
                       </Skeleton>
                     </Grid.Col>
                   </Grid>
                   <Center mt={'35px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 155 }} onClick={() => {setTranspiling(true); setLoading(true);}} loading={loading}>Translate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 155 }} onClick={() => {handleSubmit()}} loading={loading}>Translate Code</Button>
                   </Center>
                 </div>
                </Center>

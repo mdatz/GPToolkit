@@ -4,30 +4,75 @@ import { GiCycle } from 'react-icons/gi'
 import { useState } from 'react';
 
 const programmingLanguages = [
-    {value: 'C', label: 'C'},
-    {value: 'C++', label: 'C++'},
-    {value: 'C#', label: 'C#'},
-    {value: 'Java', label: 'Java'},
-    {value: 'JavaScript', label: 'JavaScript'},
-    {value: 'Python', label: 'Python'},
-    {value: 'Ruby', label: 'Ruby'},
-    {value: 'Swift', label: 'Swift'},
-    {value: 'TypeScript', label: 'TypeScript'}
+  {value: 'Bash', label: 'Bash'},
+  {value: 'C++', label: 'C++'},
+  {value: 'JavaScript', label: 'JavaScript'},
+  {value: 'TypeScript', label: 'TypeScript'},
+  {value: 'React', label: 'React'},
+  {value: 'Vue', label: 'Vue'},
+  {value: 'Svelte', label: 'Svelte'},
+  {value: 'Python', label: 'Python'},
+  {value: 'C', label: 'C'},
+  {value: 'C#', label: 'C#'},
+  {value: 'Java', label: 'Java'},
+  {value: 'PHP', label: 'PHP'},
+  {value: 'Go', label: 'Go'},
+  {value: 'Markdown', label: 'Markdown'},
+  {value: 'Swift', label: 'Swift'},
+  {value: 'Ruby', label: 'Ruby'},
+  {value: 'HTML', label: 'HTML'},
+  {value: 'CSS', label: 'CSS'},
+  {value: 'SASS', label: 'SASS'},
+  {value: 'JSON', label: 'JSON'},
+  {value: 'XML', label: 'XML'},
+  {value: 'YAML', label: 'YAML'},
+  {value: 'SQL', label: 'SQL'},
 ]
+
+const fileExt = {
+'Bash': 'sh',
+'C++': 'cpp',
+'JavaScript': 'js',
+'TypeScript': 'ts',
+'React': 'jsx',
+'Vue': 'vue',
+'Svelte': 'svelte',
+'Python': 'py',
+'C': 'c',
+'C#': 'cs',
+'Java': 'java',
+'PHP': 'php',
+'Go': 'go',
+'Markdown': 'md',
+'Swift': 'swift',
+'Ruby': 'rb',
+'HTML': 'html',
+'CSS': 'css',
+'SASS': 'sass',
+'JSON': 'json',
+'XML': 'xml',
+'YAML': 'yaml',
+'SQL': 'sql',
+}
 
 export default function IdeaToCodeCard(){
 
     const [languages, setLanguage] = useState(programmingLanguages)
-    const [languageA, setLanguageA] = useState('')
+    const [target, setTarget] = useState('')
     const [loading, setLoading] = useState(false)
     const [input, setInput] = useState('')
     const [response, setResponse] = useState(false)
 
-    var prompt = `Create a code snippet using ${languageA} that meets these requirements: ${input}`;
+    var prompt = `
+    # Create a code snippet using ${target} that meets these requirements: 
+    ${input}
+    
+    # Insert ${target} code below:
+    `;
 
     function handleSubmit() {
         setLoading(true)
-        if(input.length > 0 && languageA.length > 0){
+        if(input.length > 0 && target.length > 0){
           fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:"ideaToCode", prompt: prompt})}).then(res => res.json()).then(res => {
             setResponse(res.data)
             setLoading(false)
@@ -74,8 +119,8 @@ export default function IdeaToCodeCard(){
                       <Center>
                       <Select 
                         data={languages}
-                        value={languageA}
-                        onChange={(value) => setLanguageA(value)}
+                        value={target}
+                        onChange={(value) => setTarget(value)}
                         variant="unstyled"
                         placeholder="Select Target Language"
                         size='xl'
@@ -89,9 +134,9 @@ export default function IdeaToCodeCard(){
                         required
                       />
                       </Center>
-                      <Skeleton m='sm' height='446px' visible={!response || loading}>
+                      <Skeleton m='sm' height='446px' visible={!response || loading} animate={loading}>
                       <div style={{height:'446px'}}>
-                      <Prism style={{width:'100%'}}>
+                      <Prism style={{height: '446px', width:'520px'}} language={fileExt[target]}>
                         {response ? response : 'No Response Yet...'}
                       </Prism>
                       </div>
@@ -99,7 +144,7 @@ export default function IdeaToCodeCard(){
                     </Grid.Col>
                   </Grid>
                   <Center mt={'35px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 115 }} onClick={() => {setLoading(true); handleSubmit()}} loading={loading}>Generate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 115 }} onClick={() => {handleSubmit()}} loading={loading}>Generate Code</Button>
                   </Center>
                 </div>
                </Center>

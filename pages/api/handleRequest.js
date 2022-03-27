@@ -13,65 +13,65 @@ async function sendQuery(prompt, operation) {
         engine: 'davinci',
         prompt: prompt,
         maxTokens: 100,
-        temperature: 0.75,
+        temperature: 0.7,
         topP: 1.0,
         presencePenalty: 1,
         frequencyPenalty: 1,
         bestOf: 1,
         n: 1,
         stream: false,
-        stop: ["Prompt"]
+        stop: ["stop"]
       });
       break;
     
     // [Idea To Code] Model for generating code from a rough text description
     case 'ideaToCode':
       gptResponse = await openai.complete({
-        engine: 'davinci',
+        engine: 'code-davinci-002',
         prompt: prompt,
         maxTokens: 256,
-        temperature: 0.75,
+        temperature: 0.1,
         topP: 1.0,
-        presencePenalty: 1,
-        frequencyPenalty: 1,
+        presencePenalty: 0,
+        frequencyPenalty: 0,
         bestOf: 1,
         n: 1,
         stream: false,
-        stop: ["Prompt"]
+        stop: ["# Create"]
       });
       break;
     
     // [Transpiler] Model for translating a code snippet into a different language
-    case 'transpiler':
+    case 'transpileCode':
       gptResponse = await openai.complete({
-        engine: 'davinci',
+        engine: 'code-davinci-002',
         prompt: prompt,
         maxTokens: 256,
-        temperature: 0.75,
+        temperature: 0,
         topP: 1.0,
-        presencePenalty: 1,
-        frequencyPenalty: 1,
+        presencePenalty: 0,
+        frequencyPenalty: 0,
         bestOf: 1,
         n: 1,
         stream: false,
-        stop: ["Prompt"]
+        stop: ["# Convert"]
       });
       break;
     
     // [Optimizer] Model for optimizing a code snippet
-    case 'optimizer':
+    case 'optimizeCode':
       gptResponse = await openai.complete({
-        engine: 'davinci',
+        engine: 'code-davinci-002',
         prompt: prompt,
         maxTokens: 256,
-        temperature: 0.75,
+        temperature: 0,
         topP: 1.0,
-        presencePenalty: 1,
-        frequencyPenalty: 1,
+        presencePenalty: 0,
+        frequencyPenalty: 0,
         bestOf: 1,
         n: 1,
         stream: false,
-        stop: ["Prompt"]
+        stop: ["# End"]
       });
       break;
     
