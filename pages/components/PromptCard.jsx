@@ -2,29 +2,13 @@ import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea } from 
 import { Prism } from '@mantine/prism';
 import { GiBlackHoleBolas } from 'react-icons/gi'
 import { useState } from 'react';
-
-const programmingLanguages = [
-    {value: 'C', label: 'C'},
-    {value: 'C++', label: 'C++'},
-    {value: 'C#', label: 'C#'},
-    {value: 'Java', label: 'Java'},
-    {value: 'JavaScript', label: 'JavaScript'},
-    {value: 'Python', label: 'Python'},
-    {value: 'Ruby', label: 'Ruby'},
-    {value: 'Swift', label: 'Swift'},
-    {value: 'TypeScript', label: 'TypeScript'}
-]
+import { RichTextEditor } from '@mantine/rte'
 
 export default function PromptCard(){
-
-    const [languages, setLanguage] = useState(programmingLanguages)
     const [error, setError] = useState(false)
     const [selected, setSelected] = useState('')
-    const [languageA, setLanguageA] = useState('')
-    const [languageB, setLanguageB] = useState('')
     const [loading, setLoading] = useState(false)
-    const [transpiling, setTranspiling] = useState(false)
-    const [transpileResponse, setTranspileResponse] = useState(false)
+    const [prompt, setPrompt] = useState('')
     const [response, setResponse] = useState(false)
 
     return (
@@ -33,32 +17,14 @@ export default function PromptCard(){
                   <Grid grow justify="space-between" gutter='xl' mt='xl'>
                     <Grid.Col span={4} style={{height: '45vh'}}>
                       <Center>
-                      <Select 
-                        data={languages}
-                        value={languageA}
-                        onChange={(value) => setLanguageA(value)}
-                        variant="unstyled"
-                        placeholder="Select Source Language"
-                        size='xl'
-                        mx='sm'
-                        searchable
-                        creatable
-                        clearable
-                        getCreateLabel={(query) => `+ Create ${query}`}
-                        onCreate={(query) => setData((current) => [...current, query])}
-                        style={{borderBottom: '1px solid #e0e0e0', width: '90%'}}
-                        required
-                      />
+                        <RichTextEditor
+                          placeholder="Write your prompt here..."
+                          value={prompt}
+                          onChange={(value) => {
+                            setPrompt(value)
+                          }}
+                        />
                       </Center>
-                      <Textarea
-                        placeholder="Enter Source Code Here..."
-                        size='md'
-                        m='sm'
-                        required
-                        minRows={17}
-                        maxRows={17}
-                        autosize
-                      />
                     </Grid.Col>
                     <Grid.Col span={1}>
                       <Center style={{height:'45%', marginTop:'15px'}}>

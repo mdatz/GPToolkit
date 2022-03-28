@@ -46,7 +46,7 @@ export default function Home() {
               <Tabs.Tab label="Brainstorm an Idea" active>
                 <BrainstormCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Prompt Editor" disabled>
+              <Tabs.Tab label="Prompt Editor">
                 <PromptCard />
               </Tabs.Tab>
               <Tabs.Tab label="Idea to Code">
