@@ -1,4 +1,4 @@
-import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea } from '@mantine/core';
+import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import { GiBlackHoleBolas } from 'react-icons/gi'
 import { useState } from 'react';
@@ -9,6 +9,9 @@ export default function PromptCard(){
     const [loading, setLoading] = useState(false)
     const [prompt, setPrompt] = useState('')
     const [response, setResponse] = useState(false)
+
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
 
     function handleSubmit() {
       // setLoading(true)
@@ -51,7 +54,7 @@ export default function PromptCard(){
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <GiBlackHoleBolas color='black' size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
+                        <GiBlackHoleBolas color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
                       <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>

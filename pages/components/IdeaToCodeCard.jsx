@@ -1,4 +1,4 @@
-import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea } from '@mantine/core';
+import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import { GiCycle } from 'react-icons/gi'
 import { useState } from 'react';
@@ -63,6 +63,9 @@ export default function IdeaToCodeCard(){
     const [input, setInput] = useState('')
     const [response, setResponse] = useState(false)
 
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     var prompt = `
     # Create a code snippet using ${target} that meets these requirements: 
     ${input}
@@ -109,7 +112,7 @@ export default function IdeaToCodeCard(){
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <GiCycle color='black' size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
+                        <GiCycle color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
                       <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>
@@ -145,7 +148,7 @@ export default function IdeaToCodeCard(){
                     </Grid.Col>
                   </Grid>
                   <Center mt={'25px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 115 }} onClick={() => {handleSubmit()}} loading={loading}>Generate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'teal', to: 'blue', deg: 115 }} onClick={() => {handleSubmit()}} loading={loading}>Generate Code</Button>
                   </Center>
                 </div>
                </Center>

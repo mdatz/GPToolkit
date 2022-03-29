@@ -1,4 +1,4 @@
-import { Center, Select, Button, Divider, Skeleton, Grid, Textarea } from '@mantine/core';
+import { Center, Select, Button, Divider, Skeleton, Grid, Textarea, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import { useState } from 'react';
 import { FaFileImport } from 'react-icons/fa';
@@ -64,6 +64,9 @@ export default function TranspilerCard(){
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     var prompt = `
     # Convert a code snippet from ${source} to ${target}
     # Insert ${source} code below:
@@ -124,7 +127,7 @@ export default function TranspilerCard(){
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <FaFileImport color='black' size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
+                        <FaFileImport color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
                       <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>
@@ -159,7 +162,7 @@ export default function TranspilerCard(){
                     </Grid.Col>
                   </Grid>
                   <Center mt={'25px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 155 }} onClick={() => {handleSubmit()}} loading={loading}>Translate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'teal', to: 'blue', deg: 155 }} onClick={() => {handleSubmit()}} loading={loading}>Translate Code</Button>
                   </Center>
                 </div>
                </Center>

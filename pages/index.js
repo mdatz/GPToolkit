@@ -14,6 +14,7 @@ import OptimizerCard from './components/OptimizerCard';
 export default function Home() {
 
   const [error, setError] = useState(false);
+  const [mode, setMode] = useState(0);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -39,17 +40,33 @@ export default function Home() {
       <div style={{height:'80px'}}></div>
 
       {/* Main Content */}
-      <Center mt={'50px'}>
+      <Center mt={'50px'} ml={'-100px'}>
         <div>
-          <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
-            <Tabs grow variant='outline'>
+        <Center>
+        <Tabs grow orientation='vertical' active={mode} onTabChange={(active) => {setMode(active)}}>
+          <Tabs.Tab label='Brainstorming Tools' icon={<RiMoonClearFill />} color='grape' active/>
+          <Tabs.Tab label='Programming Tools' icon={<RiSunFill />} color='teal' />
+          <Tabs.Tab label='Business Tools' icon={<FaHeartBroken />} disabled />
+          <Tabs.Tab label='Writing Tools' icon={<SiBuymeacoffee />} disabled />          
+        </Tabs>
+
+            {mode === 0 &&
+            <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
+              <Tabs grow variant='outline'>
               <Tabs.Tab label="Brainstorm an Idea" active>
                 <BrainstormCard />
               </Tabs.Tab>
               <Tabs.Tab label="Prompt Editor">
                 <PromptCard />
               </Tabs.Tab>
-              <Tabs.Tab label="Idea to Code">
+              </Tabs>
+            </Paper>
+            }
+
+          {mode === 1 && 
+            <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
+              <Tabs grow variant='outline'>
+              <Tabs.Tab label="Idea to Code" active>
                 <IdeaToCodeCard />
               </Tabs.Tab>
               <Tabs.Tab label="Code Transpiler">
@@ -58,7 +75,10 @@ export default function Home() {
               <Tabs.Tab label="Code Optimizer">
                 <OptimizerCard />
               </Tabs.Tab>
-            </Tabs>
+              </Tabs>
+            </Paper>
+            }
+
             {error && 
               <Center>
                 <Alert icon={<FaHeartBroken size={16}/>} title="Oops!" color="red" radius="md" withCloseButton onClose={() => setError(false)} variant="filled" m='xl' mt={'-60px'} style={{width:'35%'}}>
@@ -66,15 +86,14 @@ export default function Home() {
                 </Alert>
               </Center>
             }
-        </Paper>
-        
+        </Center>
         {/* Footer Text */}
-        <Center mt='xl' mx='xl'>
+        <Center mt='xl' mx='xl' ml={'100px'}>
         <div style={{textAlign: 'center'}}>
           <h5>GPToolkit is a web application for easy access to the useful developer and productivty use cases of OpenAI's GPT 3</h5>
         </div>
         </Center>
-        </div>
+      </div>
         
         {/* Light/Dark Mode Toggle */}
         <div style={{position: 'absolute', right: '50px', bottom: '40px', display: 'flex', zIndex: 2}}>

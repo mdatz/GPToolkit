@@ -1,4 +1,4 @@
-import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea } from '@mantine/core';
+import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import { useState } from 'react';
 import { FaSpaceShuttle } from 'react-icons/fa';
@@ -63,6 +63,9 @@ export default function OptimizerCard(){
     const [input, setInput] = useState('')
     const [response, setResponse] = useState(false)
 
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     var prompt = `
     # Optimze a ${source} code snippet for speed, security, and readability
     # Start Source Code Snippet
@@ -124,7 +127,7 @@ export default function OptimizerCard(){
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <FaSpaceShuttle color='black' size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
+                        <FaSpaceShuttle color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
                       <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>
@@ -146,7 +149,7 @@ export default function OptimizerCard(){
                     </Grid.Col>
                   </Grid>
                   <Center mt={'25px'}>
-                    <Button size='lg' variant='gradient' mb='lg' gradient={{ from: 'grape', to: 'pink', deg: 195 }} onClick={() => {handleSubmit()}} loading={loading}>Optimize Code</Button>
+                    <Button size='lg' variant='gradient' mb='lg' gradient={{ from: 'teal', to: 'blue', deg: 195 }} onClick={() => {handleSubmit()}} loading={loading}>Optimize Code</Button>
                   </Center>
                 </div>
                </Center>
