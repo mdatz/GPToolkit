@@ -98,9 +98,11 @@ export default function Home() {
         {/* Light/Dark Mode Toggle */}
         <div style={{position: 'absolute', right: '50px', bottom: '40px', display: 'flex', zIndex: 2}}>
           <Paper shadow='xl' radius='xl' mr='xs'>
-            <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'yellow' : 'pink'}>
+            <a href='https://www.buymeacoffee.com/mdatz' target='_blank'>
+            <ActionIcon size={'50px'} radius='xl' variant='filled' color={dark ? 'yellow' : 'pink'}>
               <SiBuymeacoffee color='white' size={32} />
             </ActionIcon>
+            </a>
           </Paper>
           <Paper shadow='xl' radius='xl'>
           <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'blue' : 'violet'}>

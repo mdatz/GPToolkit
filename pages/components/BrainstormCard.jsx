@@ -87,7 +87,7 @@ export default function BrainstormCard(){
                         value={selected}
                         onChange={(value) => setSelected(value)}
                         variant="unstyled"
-                        placeholder="Surprise Me!"
+                        placeholder=" Surprise Me!"
                         size='xl'
                         mx='sm'
                         searchable
