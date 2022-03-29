@@ -3,7 +3,7 @@ import { Prism } from '@mantine/prism';
 import { GiBlackHoleBolas } from 'react-icons/gi'
 import { useState } from 'react';
 
-export default function PromptCard(){
+export default function PromptCard({sendPrompt}){
  
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -15,13 +15,11 @@ export default function PromptCard(){
 
     function handleSubmit() {
       // setLoading(true)
-      // if(input.length > 0 && source.length > 0){
-      //   fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:"optimizeCode", prompt: prompt})}).then(res => res.json()).then(res => {
-      //     setResponse(res.data)
-      //     setLoading(false)
-      //   })
+      // if(prompt.length > 0){
+      //   sendPrompt('customPrompt', prompt, settings).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
       // }else{
       //   setLoading(false)
+      //   setError('Please enter a prompt')
       // }
   }
 

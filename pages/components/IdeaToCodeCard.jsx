@@ -55,7 +55,7 @@ const fileExt = {
 'SQL': 'sql',
 }
 
-export default function IdeaToCodeCard(){
+export default function IdeaToCodeCard({sendPrompt}){
 
     const [languages, setLanguage] = useState(programmingLanguages)
     const [target, setTarget] = useState('')
@@ -76,10 +76,7 @@ export default function IdeaToCodeCard(){
     function handleSubmit() {
         setLoading(true)
         if(input.length > 0 && target.length > 0){
-          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:"ideaToCode", prompt: prompt})}).then(res => res.json()).then(res => {
-            setResponse(res.data)
-            setLoading(false)
-          })
+          sendPrompt('ideaToCode', prompt).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
         }else{
           setLoading(false)
         }
@@ -140,7 +137,7 @@ export default function IdeaToCodeCard(){
                       </Center>
                       <Skeleton m='sm' height='446px' visible={!response || loading} animate={loading}>
                       <div style={{height:'446px'}}>
-                      <Prism style={{height: '446px', width:'520px', overflow:'scroll'}} language={fileExt[target]}>
+                      <Prism style={{height: '446px', width:'100%', overflow:'scroll'}} language={fileExt[target]}>
                         {response ? response : 'No Response Yet...'}
                       </Prism>
                       </div>

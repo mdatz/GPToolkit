@@ -42,7 +42,7 @@ const sectors = [
     {value: 'Welding', label: 'Welding'},
   ]
 
-export default function BrainstormCard(){
+export default function BrainstormCard({sendPrompt}){
 
     const [data, setData] = useState(sectors)
     const [selected, setSelected] = useState('Anything')
@@ -64,11 +64,7 @@ export default function BrainstormCard(){
     function handleSubmit(){
         setLoading(true)
         if(selected.length > 0){
-          console.log(prompt)
-          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:'brainstorm', prompt:prompt})}).then(res => res.json()).then(res => {
-            setResponse(res.data)
-            setLoading(false)
-          })
+          sendPrompt('brainstorm', prompt).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
         }else{
           setLoading(false)
           setError('Please select a business sector or enter your own if you do not see it in the list')

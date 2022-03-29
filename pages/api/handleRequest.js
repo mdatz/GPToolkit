@@ -1,8 +1,9 @@
 const OpenAI = require('openai-api')
 
-async function sendQuery(prompt, operation) {
+async function sendQuery(operation, prompt, key) {
 
-  const openai = new OpenAI(process.env.OPENAI_API_KEY);
+  //Create a new OpenAi instance with provided key but default to env for development
+  const openai = new OpenAI(key ? key : process.env.OPENAI_API_KEY);
   var gptResponse;
 
   switch(operation) {
@@ -80,7 +81,6 @@ async function sendQuery(prompt, operation) {
   }
 
   return gptResponse.data.choices[0].text;
-
 }
 
 export default async function handler(req, res) {
@@ -88,6 +88,20 @@ export default async function handler(req, res) {
   //Check the request has specified an operation
   if (!req.body.operation) {
     res.status(400).send('No operation specified');
+    return;
+  }
+
+  console.log('Request received: [' + req.body.operation + '] - (' + new Date() + ')');
+
+  //Check the request has specified an API key
+  if (!req.body.key && process.env.OPENAI_API_KEY === undefined) {
+    res.status(400).send('No API key specified');
+    return;
+  }
+
+  //Check key is valid
+  if (!req.body.key === null && process.env.OPENAI_API_KEY === undefined) {
+    res.status(400).send('Invalid API key');
     return;
   }
 
@@ -100,10 +114,11 @@ export default async function handler(req, res) {
   //Prompt String passed to the model for completion
   const prompt_string = req.body.prompt;
   const operation = req.body.operation;
+  const key = req.body.key;
 
   //Send request to OpenAI API
   try{
-    const response = await sendQuery(prompt_string, operation);
+    const response = await sendQuery(operation, prompt_string, key);
     res.status(200).json({data: response})  
   }catch(error){
     res.status(500).json({error: error.message})

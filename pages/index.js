@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import { Center, Paper, Text, Tabs, Alert, ActionIcon, useMantineColorScheme } from '@mantine/core';
+import { Center, Button, Paper, Text, Tabs, Alert, ActionIcon, Modal, PasswordInput, useMantineColorScheme } from '@mantine/core';
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri'
+import { AiOutlineKey } from 'react-icons/ai'
 import { SiBuymeacoffee } from 'react-icons/si'
 import { GiToolbox } from 'react-icons/gi'
 import { useState } from 'react';
@@ -13,10 +14,17 @@ import OptimizerCard from './components/OptimizerCard';
 
 export default function Home() {
 
+  const [key, setKey] = useState(false);
   const [error, setError] = useState(false);
   const [mode, setMode] = useState(0);
+  const [modal, setModal] = useState(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+
+  // Function for generic prompt sending
+  async function sendPrompt(operation, prompt) {
+    return fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation: operation, key: key ? key : null, prompt: prompt})})
+  }
 
   return (
     <div>
@@ -54,10 +62,10 @@ export default function Home() {
             <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
               <Tabs grow variant='outline'>
               <Tabs.Tab label="Brainstorm an Idea" active>
-                <BrainstormCard />
+                <BrainstormCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
-              <Tabs.Tab label="Prompt Editor">
-                <PromptCard />
+              <Tabs.Tab label="Prompt Editor" aria-disabled>
+                <PromptCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
               </Tabs>
             </Paper>
@@ -67,13 +75,13 @@ export default function Home() {
             <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
               <Tabs grow variant='outline'>
               <Tabs.Tab label="Idea to Code" active>
-                <IdeaToCodeCard />
+                <IdeaToCodeCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
               <Tabs.Tab label="Code Transpiler">
-                <TranspilerCard />
+                <TranspilerCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
               <Tabs.Tab label="Code Optimizer">
-                <OptimizerCard />
+                <OptimizerCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
               </Tabs>
             </Paper>
@@ -99,19 +107,44 @@ export default function Home() {
         <div style={{position: 'absolute', right: '50px', bottom: '40px', display: 'flex', zIndex: 2}}>
           <Paper shadow='xl' radius='xl' mr='xs'>
             <a href='https://www.buymeacoffee.com/mdatz' target='_blank'>
-            <ActionIcon size={'50px'} radius='xl' variant='filled' color={dark ? 'yellow' : 'pink'}>
+            <ActionIcon size={'50px'} radius='xl' variant='filled' color='orange'>
               <SiBuymeacoffee color='white' size={32} />
             </ActionIcon>
             </a>
           </Paper>
+          <Paper shadow='xl' radius='xl' mr='xs'>
+          <ActionIcon size={'50px'} radius='xl' onClick={() => setModal(true)} variant='filled' color={dark ? 'pink' : 'violet'}>
+            <AiOutlineKey color='gold' size={32} />
+          </ActionIcon>
+          </Paper>
           <Paper shadow='xl' radius='xl'>
-          <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'blue' : 'violet'}>
-            {dark ? <RiSunFill color='yellow' size={32} /> : <RiMoonClearFill color='yellow' size={32} />}
+          <ActionIcon size={'50px'} radius='xl' onClick={() => toggleColorScheme()} variant='filled' color={dark ? 'cyan' : 'dark'}>
+            {dark ? <RiSunFill color='yellow' size={32} /> : <RiMoonClearFill color='white' size={32} />}
           </ActionIcon>
           </Paper>
         </div>
-
       </Center>
+
+      {/* Modal Popup */}
+      <Modal opened={modal} onClose={() => setModal(false)} title="Add an OpenAI API Key" centered>
+        <Text>
+          <p>
+            To use the GPToolkit, you must first add your OpenAI API Key.
+          </p>
+          <p>
+            You can find your API Key on the <a href='https://dashboard.openai.com/account' target='_blank'>OpenAI Dashboard</a>.
+          </p>
+          <p>
+            Once you have your API Key, you can use the <b>Brainstorm an Idea</b> tab to generate a new idea.
+          </p>
+        </Text>
+        <PasswordInput placeholder='API Key' label='OpenAI API Key' value={key} onChange={(event) => setKey(event.currentTarget.value)}/>
+        <Center>
+          <Button mt='xl' onClick={() => {setModal(false); console.log(key)}}>
+            Add API Key
+          </Button>
+        </Center>
+      </Modal>
     </div>
   )
 }

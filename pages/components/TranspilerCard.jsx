@@ -55,7 +55,7 @@ const fileExt = {
   'SQL': 'sql',
 }
 
-export default function TranspilerCard(){
+export default function TranspilerCard({sendPrompt}){
  
     const [languages, setLanguage] = useState(programmingLanguages)
     const [input, setInput] = useState('')
@@ -78,10 +78,7 @@ export default function TranspilerCard(){
     function handleSubmit() {
         setLoading(true)
         if(input.length > 0 && source.length > 0 && target.length > 0){
-          fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation:"transpileCode", prompt: prompt})}).then(res => res.json()).then(res => {
-            setResponse(res.data)
-            setLoading(false)
-          })
+          sendPrompt('transpileCode', prompt).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
         }else{
           setLoading(false)
         }
@@ -154,7 +151,7 @@ export default function TranspilerCard(){
                       </Center>
                       <Skeleton m='sm' height='446px' visible={loading || !response} animate={loading}>
                       <div style={{height:'446px'}}>
-                      <Prism style={{height:'446px', width:'520px', overflow:'scroll'}} language={fileExt[target]} scrollAreaComponent="div">
+                      <Prism style={{height:'446px', width:'100%', overflow:'scroll'}} language={fileExt[target]} scrollAreaComponent="div">
                         {response ? response : 'No Peeking'}
                       </Prism>
                       </div>
