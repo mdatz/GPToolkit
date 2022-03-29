@@ -87,8 +87,8 @@ export default function TranspilerCard(){
     return (
         <Center style={{height:'60vh'}}>
                 <div style={{width:'70vw'}}>
-                  <Grid grow justify="space-between" gutter='xl' mt='xl'>
-                    <Grid.Col span={4} style={{height: '45vh'}}>
+                  <Grid grow justify="space-between" gutter='xs' mt='xl' columns={10}>
+                    <Grid.Col span={4}>
                       <Center>
                       <Select 
                         data={languages}
@@ -119,14 +119,14 @@ export default function TranspilerCard(){
                         autosize
                       />
                     </Grid.Col>
-                    <Grid.Col span={1}>
-                      <Center style={{height:'45%', marginTop:'15px'}}>
+                    <Grid.Col span={2} style={{marginRight: '-150px', marginLeft: '-150px'}}>
+                      <Center style={{height:'30%', marginTop:'25%'}}>
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <FaFileImport color='black' size={32} style={{marginTop: '10px', marginBottom: '10px'}}/>
+                        <FaFileImport color='black' size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
-                      <Center style={{height:'45%'}}>
+                      <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>
                       </Center>
                     </Grid.Col>
@@ -151,14 +151,14 @@ export default function TranspilerCard(){
                       </Center>
                       <Skeleton m='sm' height='446px' visible={loading || !response} animate={loading}>
                       <div style={{height:'446px'}}>
-                      <Prism style={{height:'446px', width:'520px'}} language={fileExt[target]} scrollAreaComponent="div">
+                      <Prism style={{height:'446px', width:'520px', overflow:'scroll'}} language={fileExt[target]} scrollAreaComponent="div">
                         {response ? response : 'No Peeking'}
                       </Prism>
                       </div>
                       </Skeleton>
                     </Grid.Col>
                   </Grid>
-                  <Center mt={'35px'}>
+                  <Center mt={'25px'}>
                     <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 155 }} onClick={() => {handleSubmit()}} loading={loading}>Translate Code</Button>
                   </Center>
                 </div>

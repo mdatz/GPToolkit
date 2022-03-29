@@ -45,11 +45,21 @@ const sectors = [
 export default function BrainstormCard(){
 
     const [data, setData] = useState(sectors)
-    const [selected, setSelected] = useState('')
+    const [selected, setSelected] = useState('Anything')
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
-    var prompt = `Brainstorm some ideas combining software and ${selected}:`
+    var prompt = `
+    The following are futuristic gpt-3 tools:
+    ###
+    A tool that creates Unit Code tests for code snippets.
+    ###
+    A tool that helps people build their resume and cover letters.
+    ###
+    A tool that suggests content ideas for social media, blogs, and other platforms.
+    ###
+    A tool that automatically documents code snippets.
+    ###`
 
     function handleSubmit(){
         setLoading(true)
@@ -70,14 +80,14 @@ export default function BrainstormCard(){
             <Paper radius='xl' py='xs' px='xl'>
                 <Center>
                     <Text size='xl'>
-                        <b>Brainstorm my next cool project in </b>
+                        <b>Brainstorm the next GPT-3 tool in </b>
                     </Text>
                     <Select 
                         data={data}
                         value={selected}
                         onChange={(value) => setSelected(value)}
                         variant="unstyled"
-                        placeholder=""
+                        placeholder="Surprise Me!"
                         size='xl'
                         mx='sm'
                         searchable
@@ -86,6 +96,7 @@ export default function BrainstormCard(){
                         getCreateLabel={(query) => `+ Create ${query}`}
                         onCreate={(query) => setData((current) => [...current, query])}
                         style={{borderBottom: '1px solid #e0e0e0', width: '400px'}}
+                        disabled
                     />
                 </Center>
                 {response && 

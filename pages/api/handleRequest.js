@@ -12,15 +12,15 @@ async function sendQuery(prompt, operation) {
       gptResponse = await openai.complete({
         engine: 'davinci',
         prompt: prompt,
-        maxTokens: 100,
-        temperature: 0.7,
+        maxTokens: 70,
+        temperature: 0.85,
         topP: 1.0,
         presencePenalty: 1,
         frequencyPenalty: 1,
         bestOf: 1,
         n: 1,
         stream: false,
-        stop: ["stop"]
+        stop: ["###"]
       });
       break;
     
