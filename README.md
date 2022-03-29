@@ -2,20 +2,12 @@
 
 GPToolkit is a [Next.js] project using Mantine UI built to handle some basic GPT3 Developer Requests & general idea refining and brainstorming tools. At the moment, I use this to help me generate new project ideas when I am bored, or help me refine and audit my snippets of code. A valid OpenAI API key is needed to use the application for any functionality. I plan to continue to add more use cases as I discover them! Happy prompt engineering!
 
+
 ### Screenshots (Desktop)
+![GPToolkit_1](https://user-images.githubusercontent.com/26133178/160709800-d0cc39be-9cea-4e0f-8fde-2c59d50a6935.PNG)
+![GPToolkit_2](https://user-images.githubusercontent.com/26133178/160709860-c1641992-8666-4979-97fd-33010dc7333e.PNG)
 
-<table>
-  <tr>
-    <td>Brainstorm ideas</td>
-    <td>Transform ideas to code</td>
-  </tr>
-  <tr>
-    <td><img src="./docs/screenshots/GPToolkit_1.png" width=100% height=480></td>
-    <td><img src="./docs/screenshots/GPToolkit_2.png" width=100% height=480></td>
-  </tr>
- </table>
-
-### List of Tools to Add
+### List of Tools to (potentially) Add
 
 0.  GPT Prompt Sandbox - [Pending]
 1.  Business Idea Generator - [In Review]
