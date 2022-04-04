@@ -24,6 +24,23 @@ async function sendQuery(operation, prompt, key) {
         stop: ["###"]
       });
       break;
+
+    // [Sandbox] Model for testing out new sandbox prompts 
+    case 'sandbox':
+      gptResponse = await openai.complete({
+        engine: 'davinci',
+        prompt: prompt,
+        maxTokens: 100,
+        temperature: 0.0,
+        topP: 1.0,
+        presencePenalty: 1,
+        frequencyPenalty: 1,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ["###"]
+      });
+      break;
     
     // [Idea To Code] Model for generating code from a rough text description
     case 'ideaToCode':

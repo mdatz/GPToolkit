@@ -14,14 +14,13 @@ export default function PromptCard({sendPrompt}){
     const dark = colorScheme === 'dark';
 
     function handleSubmit() {
-      // setLoading(true)
-      // if(prompt.length > 0){
-      //   sendPrompt('customPrompt', prompt, settings).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
-      // }else{
-      //   setLoading(false)
-      //   setError('Please enter a prompt')
-      // }
-  }
+      setLoading(true)
+      if(prompt.length > 0){
+        sendPrompt('sandbox', prompt).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false);})
+      }else{
+        setLoading(false)
+      }
+    }
 
     return (
         <Center style={{height:'60vh'}}>
@@ -65,11 +64,11 @@ export default function PromptCard({sendPrompt}){
                         </Text>
                       </Center>
                       <Skeleton m='sm' height='80%' visible={loading || !response} animate={loading}>
-                      <div style={{height:'446px', overflow:'scroll'}}>
-                      <Prism>
+                      <Center style={{height:'446px', overflow:'scroll'}}>
+                      <Text>
                         {response ? response : 'No Response'}
-                      </Prism>
-                      </div>
+                      </Text>
+                      </Center>
                       </Skeleton>
                     </Grid.Col>
                   </Grid>
