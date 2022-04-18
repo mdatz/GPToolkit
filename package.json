@@ -10,7 +10,7 @@
     "cypress": "cypress run"
   },
   "dependencies": {
-    "@mantine/core": "^4.0.8",
+    "@mantine/core": "^4.0.9",
     "@mantine/hooks": "^4.0.8",
     "@mantine/next": "^4.0.7",
     "@mantine/prism": "^4.0.8",
