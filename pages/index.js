@@ -119,7 +119,7 @@ export default function Home() {
         {/* Footer Text */}
         <Center mt='xl' mx='xl' ml={'100px'}>
         <div style={{textAlign: 'center'}}>
-          <h5>GPToolkit is a web application for easy access to the useful developer and productivty use cases of OpenAI's GPT 3</h5>
+          <h5>GPToolkit is a web application for easy access to the useful developer and productivity use cases of OpenAIs GPT 3</h5>
         </div>
         </Center>
       </div>
@@ -127,7 +127,7 @@ export default function Home() {
         {/* Light/Dark Mode Toggle */}
         <div style={{position: 'absolute', right: '50px', bottom: '40px', display: 'flex', zIndex: 2}}>
           <Paper shadow='xl' radius='xl' mr='xs'>
-            <a href='https://www.buymeacoffee.com/mdatz' target='_blank'>
+            <a href='https://www.buymeacoffee.com/mdatz' target='_blank' rel='noreferrer'>
             <ActionIcon size={'50px'} radius='xl' variant='filled' color='orange'>
               <SiBuymeacoffee color='white' size={32} />
             </ActionIcon>
@@ -153,7 +153,7 @@ export default function Home() {
             To use the GPToolkit, you must first add your OpenAI API Key.
           </p>
           <p>
-            You can find your API Key on the <a href='https://dashboard.openai.com/account' target='_blank'>OpenAI Dashboard</a>.
+            You can find your API Key on the <a href='https://dashboard.openai.com/account' target='_blank' rel='noreferrer'>OpenAI Dashboard</a>.
           </p>
           <p>
             Once you have your API Key, you can use the <b>Brainstorm an Idea</b> tab to generate a new idea.
