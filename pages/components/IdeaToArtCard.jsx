@@ -1,4 +1,4 @@
-import { Center, Paper, Select, Text, Button, Divider, Skeleton } from '@mantine/core';
+import { Center, Paper, Input, Text, Button, Divider, Skeleton } from '@mantine/core';
 import { useState } from 'react';
 
 const sectors = [
@@ -45,66 +45,33 @@ const sectors = [
 export default function BrainstormCard({sendPrompt}){
 
     const [data, setData] = useState(sectors)
-    const [selected, setSelected] = useState('Anything')
+    const [selected, setSelected] = useState('')
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
+    var prompt = `
+    ***
+    The following are futuristic gpt-3 tools:
+    ###
+    A tool that creates Unit Code tests for code snippets.
+    ###
+    A tool that helps people build their resume and cover letters.
+    ###
+    A tool that suggests content ideas for social media, blogs, and other platforms.
+    ###
+    A tool that automatically documents code snippets.
+    ###
+    A tool that generates UML diagrams based on Code
+    ###
+    `;
+
     function handleSubmit(){
         setLoading(true)
-        if(selected === 'Anything'){
-
-          const prompt = `
-          ***
-          The following are futuristic gpt-3 tools:
-          ###
-          A tool that creates Unit Code tests for code snippets.
-          ###
-          A tool that reads text and summarizes the authors tone and feeling
-          ###
-          A tool that generates Art based on a text description
-          ###
-          A tool that generates NFT's for a users written thought
-          ###
-          A tool that helps people build their resume and cover letters.
-          ###
-          A tool that suggests content ideas for social media, blogs, and other platforms.
-          ###
-          A tool that automatically documents code snippets.
-          ###
-          A tool that generates UML diagrams from source code.
-          ###
-          `;
-
+        if(selected.length > 0){
           sendPrompt('brainstorm', prompt).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
-
-        } else {
-
-          const prompt = `
-          ***
-          The following are futuristic gpt-3 tools:
-          ###
-          A tool that creates Unit Code tests for code snippets.
-          ###
-          A tool that reads text and summarizes the authors tone and feeling
-          ###
-          A tool that generates Art based on a text description
-          ###
-          A tool that generates NFT's for a users written thought
-          ###
-          A tool that helps people build their resume and cover letters.
-          ###
-          A tool that suggests content ideas for social media, blogs, and other platforms.
-          ###
-          A tool that automatically documents code snippets.
-          ###
-          A tool that generates UML diagrams from source code.
-          ***
-          The following are futuristic gpt-3 tools specifically targeting the ${selected} industry:
-          ###
-          `;
-
-          sendPrompt('brainstorm', prompt).then(res => res.json()).then(res => {setResponse(res.data);setLoading(false)})
-
+        }else{
+          setLoading(false)
+          setError('Please select a business sector or enter your own if you do not see it in the list')
         }
     }
 
@@ -112,23 +79,15 @@ export default function BrainstormCard({sendPrompt}){
         <Center style={{height:'60vh', width:'80vw'}}>
             <Paper radius='xl' py='xs' px='xl'>
                 <Center>
-                    <Text size='xl'>
-                        <b>Brainstorm the next GPT-3 tool in </b>
-                    </Text>
-                    <Select 
+                    <Input
                         data={data}
                         value={selected}
                         onChange={(value) => setSelected(value)}
                         variant="unstyled"
-                        placeholder=" Surprise Me!"
+                        placeholder="Write a description about what you would like to see"
                         size='xl'
                         mx='sm'
-                        searchable
-                        creatable
-                        clearable
-                        getCreateLabel={(query) => `+ Create ${query}`}
-                        onCreate={(query) => setData((current) => [...current, query])}
-                        style={{borderBottom: '1px solid #e0e0e0', width: '400px'}}
+                        style={{borderBottom: '1px solid #e0e0e0', width: '600px'}}
                     />
                 </Center>
                 {response && 
@@ -145,10 +104,9 @@ export default function BrainstormCard({sendPrompt}){
                     </>
                 }
                 <Center mt={'40px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 35 }} onClick={handleSubmit} loading={loading}>Brainstorm!</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'cyan', to: 'blue', deg: 65 }} onClick={handleSubmit} loading={loading} disabled>Coming Soon</Button>
                 </Center>
             </Paper>
         </Center>
     );
-
 }

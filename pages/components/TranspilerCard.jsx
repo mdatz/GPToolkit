@@ -1,7 +1,7 @@
 import { Center, Select, Button, Divider, Skeleton, Grid, Textarea, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
 import { useState } from 'react';
-import { FaFileImport } from 'react-icons/fa';
+import { GiTransform } from 'react-icons/gi';
 
 const programmingLanguages = [
     {value: 'Bash', label: 'Bash'},
@@ -124,7 +124,7 @@ export default function TranspilerCard({sendPrompt}){
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <FaFileImport color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
+                        <GiTransform color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
                       <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>
@@ -159,7 +159,7 @@ export default function TranspilerCard({sendPrompt}){
                     </Grid.Col>
                   </Grid>
                   <Center mt={'25px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'teal', to: 'blue', deg: 155 }} onClick={() => {handleSubmit()}} loading={loading}>Translate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'teal', to: 'green', deg: 155 }} onClick={() => {handleSubmit()}} loading={loading}>Translate Code</Button>
                   </Center>
                 </div>
                </Center>

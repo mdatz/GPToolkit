@@ -1,16 +1,18 @@
 import Head from 'next/head'
+import { showNotification } from '@mantine/notifications';
 import { Center, Button, Paper, Text, Tabs, Alert, ActionIcon, Modal, PasswordInput, useMantineColorScheme } from '@mantine/core';
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri'
 import { AiOutlineKey } from 'react-icons/ai'
 import { SiBuymeacoffee } from 'react-icons/si'
-import { GiToolbox, GiBrainstorm, GiComputing, GiBriefcase, GiBookCover } from 'react-icons/gi'
+import { GiToolbox, GiBrainstorm, GiComputing, GiBriefcase, GiBookCover, GiPalette } from 'react-icons/gi'
 import { useState } from 'react';
 import { FaHeartBroken } from 'react-icons/fa';
 import BrainstormCard from './components/BrainstormCard';
-import PromptCard from './components/PromptCard';
+//import PromptCard from './components/PromptCard';
 import IdeaToCodeCard from './components/IdeaToCodeCard';
 import TranspilerCard from './components/TranspilerCard';
 import OptimizerCard from './components/OptimizerCard';
+import IdeaToArtCard from './components/IdeaToArtCard';
 
 export default function Home() {
 
@@ -23,6 +25,14 @@ export default function Home() {
 
   // Function for generic prompt sending
   async function sendPrompt(operation, prompt) {
+    if(key === ''){
+      showNotification({
+        autoClose: 6000,
+        title: 'Oops! Your API key is missing',
+        message: 'Try entering your api key by opening the key icon in the bottom right!',
+        color: 'pink'
+      })
+    }
     return fetch('api/handleRequest', {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({operation: operation, key: key ? key : null, prompt: prompt})})
   }
 
@@ -54,6 +64,7 @@ export default function Home() {
         <Tabs grow orientation='vertical' active={mode} onTabChange={(active) => {setMode(active)}}>
           <Tabs.Tab label='Brainstorming Tools' icon={<GiBrainstorm size={24} />} color='grape' active/>
           <Tabs.Tab label='Programming Tools' icon={<GiComputing size={24} />} color='teal' />
+          <Tabs.Tab label='Image/Art Tools' icon={<GiPalette size={24} />} color='cyan' />
           <Tabs.Tab label='Business Tools' icon={<GiBriefcase size={24} />} disabled />
           <Tabs.Tab label='Writing Tools' icon={<GiBookCover size={24} />} disabled />          
         </Tabs>
@@ -64,9 +75,9 @@ export default function Home() {
               <Tabs.Tab label="Brainstorm an Idea" active>
                 <BrainstormCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
-              <Tabs.Tab label="Prompt Editor" aria-disabled>
+              {/* <Tabs.Tab label="Prompt Editor" aria-disabled>
                 <PromptCard sendPrompt={sendPrompt}/>
-              </Tabs.Tab>
+              </Tabs.Tab> */}
               </Tabs>
             </Paper>
             }
@@ -82,6 +93,16 @@ export default function Home() {
               </Tabs.Tab>
               <Tabs.Tab label="Code Optimizer">
                 <OptimizerCard sendPrompt={sendPrompt}/>
+              </Tabs.Tab>
+              </Tabs>
+            </Paper>
+            }
+
+          {mode === 2 && 
+            <Paper radius='md' shadow='xl' style={{height: '70vh', width:'80vw'}} withBorder>
+              <Tabs grow variant='outline'>
+              <Tabs.Tab label="Idea to Art" active>
+                <IdeaToArtCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
               </Tabs>
             </Paper>
@@ -140,7 +161,7 @@ export default function Home() {
         </Text>
         <PasswordInput placeholder='API Key' label='OpenAI API Key' value={key} onChange={(event) => setKey(event.currentTarget.value)}/>
         <Center>
-          <Button mt='xl' onClick={() => {setModal(false); console.log(key)}}>
+          <Button mt='xl' onClick={() => {setModal(false)}}>
             Add API Key
           </Button>
         </Center>

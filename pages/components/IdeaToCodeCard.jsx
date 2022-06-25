@@ -1,6 +1,6 @@
 import { Center, Select, Text, Button, Divider, Skeleton, Grid, Textarea, useMantineColorScheme } from '@mantine/core';
 import { Prism } from '@mantine/prism';
-import { GiCycle } from 'react-icons/gi'
+import { GiDiamondHard } from 'react-icons/gi'
 import { useState } from 'react';
 
 const programmingLanguages = [
@@ -109,7 +109,7 @@ export default function IdeaToCodeCard({sendPrompt}){
                         <Divider orientation='vertical'/>
                       </Center>
                       <Center>
-                        <GiCycle color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
+                        <GiDiamondHard color={dark ? 'white' : 'black'} size={'10%'} style={{marginTop: '25px', marginBottom: '25px'}}/>
                       </Center>
                       <Center style={{height:'30%'}}>
                         <Divider orientation='vertical'/>
@@ -145,7 +145,7 @@ export default function IdeaToCodeCard({sendPrompt}){
                     </Grid.Col>
                   </Grid>
                   <Center mt={'25px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'teal', to: 'blue', deg: 115 }} onClick={() => {handleSubmit()}} loading={loading}>Generate Code</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'teal', to: 'green', deg: 115 }} onClick={() => {handleSubmit()}} loading={loading}>Generate Code</Button>
                   </Center>
                 </div>
                </Center>
