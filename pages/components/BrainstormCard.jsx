@@ -100,7 +100,7 @@ export default function BrainstormCard({sendPrompt}){
                         <Divider my='xl' mx={'200px'}/>
                           <Center mx='150px'>
                             <Skeleton visible={loading}>
-                              <Text size='xl' style={{textAlign: 'center'}}>
+                              <Text size='xl' style={{textAlign: 'center'}} id='response'>
                                 {response}
                               </Text>
                             </Skeleton>
@@ -109,7 +109,7 @@ export default function BrainstormCard({sendPrompt}){
                     </>
                 }
                 <Center mt={'40px'}>
-                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 35 }} onClick={handleSubmit} loading={loading}>Brainstorm</Button>
+                    <Button size='lg' variant='gradient' gradient={{ from: 'grape', to: 'pink', deg: 35 }} onClick={handleSubmit} loading={loading}>Brainstorm!</Button>
                 </Center>
             </Paper>
         </Center>

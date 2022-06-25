@@ -3,7 +3,7 @@ import { Center, Button, Paper, Text, Tabs, Alert, ActionIcon, Modal, PasswordIn
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri'
 import { AiOutlineKey } from 'react-icons/ai'
 import { SiBuymeacoffee } from 'react-icons/si'
-import { GiToolbox } from 'react-icons/gi'
+import { GiToolbox, GiBrainstorm, GiComputing, GiBriefcase, GiBookCover } from 'react-icons/gi'
 import { useState } from 'react';
 import { FaHeartBroken } from 'react-icons/fa';
 import BrainstormCard from './components/BrainstormCard';
@@ -14,7 +14,7 @@ import OptimizerCard from './components/OptimizerCard';
 
 export default function Home() {
 
-  const [key, setKey] = useState(false);
+  const [key, setKey] = useState('');
   const [error, setError] = useState(false);
   const [mode, setMode] = useState(0);
   const [modal, setModal] = useState(false);
@@ -52,10 +52,10 @@ export default function Home() {
         <div>
         <Center>
         <Tabs grow orientation='vertical' active={mode} onTabChange={(active) => {setMode(active)}}>
-          <Tabs.Tab label='Brainstorming Tools' icon={<RiMoonClearFill />} color='grape' active/>
-          <Tabs.Tab label='Programming Tools' icon={<RiSunFill />} color='teal' />
-          <Tabs.Tab label='Business Tools' icon={<FaHeartBroken />} disabled />
-          <Tabs.Tab label='Writing Tools' icon={<SiBuymeacoffee />} disabled />          
+          <Tabs.Tab label='Brainstorming Tools' icon={<GiBrainstorm size={24} />} color='grape' active/>
+          <Tabs.Tab label='Programming Tools' icon={<GiComputing size={24} />} color='teal' />
+          <Tabs.Tab label='Business Tools' icon={<GiBriefcase size={24} />} disabled />
+          <Tabs.Tab label='Writing Tools' icon={<GiBookCover size={24} />} disabled />          
         </Tabs>
 
             {mode === 0 &&

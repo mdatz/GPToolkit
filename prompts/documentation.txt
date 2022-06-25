@@ -1,0 +1,19 @@
+#CODE
+function printString: void(string:input) {
+    console.log(input);
+}
+
+#DOCUMENTATION
+Function: printString
+----------------------------------------------------------------------
+This function is for indirectly calling the console to print strings, it can be extended to do more safety checks on the input string before printing
+----------------------------------------------------------------------
+Input: input - string
+output: void
+
+#CODE
+function splitString:string[](string:input, string:delimeter){
+    return input.split(delimeter);
+}
+
+#DOCUMENTATION
