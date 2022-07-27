@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@mantine/core": "^4.0.8",
-    "@mantine/hooks": "^4.0.8",
+    "@mantine/hooks": "^4.0.9",
     "@mantine/next": "^4.0.7",
     "@mantine/notifications": "^4.2.10",
     "@mantine/prism": "^4.0.8",
