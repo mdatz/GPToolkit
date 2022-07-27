@@ -75,9 +75,9 @@ export default function Home() {
               <Tabs.Tab label="Brainstorm an Idea" active>
                 <BrainstormCard sendPrompt={sendPrompt}/>
               </Tabs.Tab>
-              {/* <Tabs.Tab label="Prompt Editor" aria-disabled>
+              <Tabs.Tab label="Prompt Editor" aria-disabled>
                 <PromptCard sendPrompt={sendPrompt}/>
-              </Tabs.Tab> */}
+              </Tabs.Tab>
               </Tabs>
             </Paper>
             }
